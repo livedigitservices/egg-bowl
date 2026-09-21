@@ -1,0 +1,158 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-shell: #fcf4e4;
+  --color-butter: #fbe5b0;
+  --color-chestnut: #3a1d12;
+  --color-bark: #55301f;
+  --color-yolk: #f4a21d;
+  --color-ember: #c25a10;
+  --color-husk: #c57b3e;
+  --color-meadow: #2e5a2a;
+  --color-rooster: #d6321f;
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-sans: 'Figtree', system-ui, sans-serif;
+  --font-script: 'Kaushan Script', cursive;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  background: var(--color-shell);
+  color: var(--color-chestnut);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-yolk);
+  color: var(--color-chestnut);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-yolk);
+  outline-offset: 3px;
+}
+
+@layer components {
+  .btn {
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    overflow: hidden;
+    border-radius: 9999px;
+    padding: 0.95rem 1.7rem;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.4s ease;
+  }
+  .btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--sweep);
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    transform: translateY(101%);
+    transition:
+      transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      border-radius 0.55s ease;
+  }
+  .btn:hover::before,
+  .btn:focus-visible::before {
+    transform: translateY(0);
+    border-radius: 0;
+  }
+  .btn-dark {
+    background: var(--color-chestnut);
+    color: var(--color-shell);
+    --sweep: var(--color-meadow);
+  }
+  .btn-yolk {
+    background: var(--color-yolk);
+    color: var(--color-chestnut);
+    --sweep: var(--color-chestnut);
+  }
+  .btn-yolk:hover,
+  .btn-yolk:focus-visible {
+    color: var(--color-shell);
+  }
+  .btn-ghost {
+    box-shadow: inset 0 0 0 2px currentColor;
+    --sweep: var(--color-chestnut);
+  }
+  .btn-ghost:hover,
+  .btn-ghost:focus-visible {
+    color: var(--color-shell);
+  }
+
+  .link-slide {
+    position: relative;
+  }
+  .link-slide::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -4px;
+    height: 2px;
+    background: var(--color-yolk);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .link-slide:hover::after,
+  .link-slide:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+}
+
+.egg-frame {
+  border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}
