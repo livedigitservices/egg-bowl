@@ -6,6 +6,7 @@ import pack6 from '../assets/pack6.webp';
 import pack10 from '../assets/pack10.webp';
 import label6 from '../assets/label6.webp';
 import label10 from '../assets/label10.webp';
+import Pack30 from './Pack30';
 
 const facts = [
   { icon: Leaf, title: 'Natural & fresh', text: 'Farm fresh eggs for your family' },
@@ -17,7 +18,10 @@ const facts = [
 const copy = {
   6: 'Six premium quality eggs in a box sized for everyday breakfasts.',
   10: 'Ten premium quality eggs in a sturdy carton for busy family kitchens.',
+  30: 'Thirty premium quality eggs in one tray, made for big families and weekly stock-ups.',
 };
+
+const sizes = [6, 10, 30];
 
 export default function Packs() {
   const root = useRef(null);
@@ -62,7 +66,7 @@ export default function Packs() {
 
   const choose = contextSafe((next) => {
     if (next === size) return;
-    const dir = next === 6 ? -1 : 1;
+    const dir = next > size ? 1 : -1;
     const outs = root.current.querySelectorAll(`[data-pack="${size}"]`);
     const ins = root.current.querySelectorAll(`[data-pack="${next}"]`);
     gsap.to(outs, { opacity: 0, xPercent: -10 * dir, rotate: -4 * dir, duration: 0.45, ease: 'power3.in', overwrite: true });
@@ -83,20 +87,20 @@ export default function Packs() {
             Pick your pack.
           </h2>
 
-          <div role="radiogroup" aria-label="Pack size" className="relative flex w-fit rounded-full bg-chestnut p-1.5 text-shell">
+          <div role="radiogroup" aria-label="Pack size" className="relative flex w-full rounded-full bg-chestnut p-1.5 text-shell sm:w-fit">
             <span
               aria-hidden="true"
-              className="absolute inset-y-1.5 left-1.5 w-[calc(50%-0.375rem)] rounded-full bg-yolk transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
-              style={{ transform: size === 10 ? 'translateX(100%)' : 'none' }}
+              className="absolute inset-y-1.5 left-1.5 w-[calc((100%-0.75rem)/3)] rounded-full bg-yolk transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+              style={{ transform: `translateX(${sizes.indexOf(size) * 100}%)` }}
             />
-            {[6, 10].map((n) => (
+            {sizes.map((n) => (
               <button
                 key={n}
                 type="button"
                 role="radio"
                 aria-checked={size === n}
                 onClick={() => choose(n)}
-                className={`relative z-10 w-28 rounded-full py-3 text-base font-bold transition-colors duration-300 ${size === n ? 'text-chestnut' : ''}`}
+                className={`relative z-10 flex-1 rounded-full py-3 text-base font-bold transition-colors duration-300 sm:w-28 sm:flex-none ${size === n ? 'text-chestnut' : ''}`}
               >
                 {n} eggs
               </button>
@@ -109,6 +113,7 @@ export default function Packs() {
             <div className="pack-tilt relative aspect-[16/10]">
               <img data-pack="6" src={pack6} alt="Egg Bowl 6 egg pack" width="1227" height="817" loading="lazy" className="absolute inset-0 h-full w-full object-contain drop-shadow-[0_30px_30px_rgba(58,29,18,0.35)]" style={{ opacity: size === 6 ? 1 : 0 }} />
               <img data-pack="10" src={pack10} alt="Egg Bowl 10 egg pack" width="1640" height="816" loading="lazy" className="absolute inset-0 h-full w-full object-contain drop-shadow-[0_30px_30px_rgba(58,29,18,0.35)]" style={{ opacity: size === 10 ? 1 : 0 }} />
+              <Pack30 data-pack="30" className="absolute inset-0 h-full w-full object-contain drop-shadow-[0_30px_30px_rgba(58,29,18,0.35)]" style={{ opacity: size === 30 ? 1 : 0 }} />
             </div>
             <div className="pointer-events-none absolute -bottom-8 -right-2 w-[26%] max-w-[190px] rotate-6 md:-right-6">
               <div className="relative aspect-[599/765]">

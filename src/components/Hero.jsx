@@ -24,13 +24,13 @@ export default function Hero() {
         const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
         tl.from('.hero-line', { yPercent: 115, duration: 1.15, stagger: 0.12 })
           .from('.hero-fade', { y: 22, opacity: 0, duration: 0.9, stagger: 0.09 }, '-=0.7')
-          .from('.hero-sun', { scale: 0.3, opacity: 0, duration: 1.5, ease: 'expo.out' }, 0.05)
+          .from('.hero-sun-intro', { scale: 0.3, opacity: 0, duration: 1.5, ease: 'expo.out' }, 0.05)
           .from('.hero-pack', { y: 90, rotate: -12, opacity: 0, duration: 1.3 }, 0.25)
           .from('.hero-chip', { scale: 0, opacity: 0, duration: 0.8, stagger: 0.14, ease: 'back.out(1.8)' }, '-=0.7');
 
         const scrub = { trigger: root.current, start: 'top top', end: 'bottom top', scrub: true };
         gsap.to('.hero-visual', { yPercent: -10, ease: 'none', scrollTrigger: scrub });
-        gsap.to('.hero-sun', { scale: 1.3, ease: 'none', scrollTrigger: scrub });
+        gsap.fromTo('.hero-sun', { scale: 1 }, { scale: 1.3, ease: 'none', scrollTrigger: scrub });
         gsap.to('.hero-copy', { yPercent: 8, opacity: 0.2, ease: 'none', scrollTrigger: scrub });
       });
 
@@ -104,8 +104,10 @@ export default function Hero() {
         </div>
 
         <div className="hero-visual relative mx-auto w-full max-w-[680px]">
-          <div className="absolute inset-0 grid place-items-center" aria-hidden="true">
-            <div className="hero-sun aspect-square w-[84%] rounded-full bg-yolk" />
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center" aria-hidden="true">
+            <div className="hero-sun-intro w-[84%] will-change-transform">
+              <div className="hero-sun aspect-square w-full rounded-full bg-yolk will-change-transform" />
+            </div>
           </div>
 
           <div className="hero-tilt relative">

@@ -5,6 +5,7 @@ import Hero from './components/Hero';
 import Marquee from './components/Marquee';
 import Statement from './components/Statement';
 import Power from './components/Power';
+import Nutrition from './components/Nutrition';
 import Packs from './components/Packs';
 import Eggs from './components/Eggs';
 import Why from './components/Why';
@@ -33,6 +34,7 @@ export default function App() {
         <Marquee />
         <Statement />
         <Power />
+        <Nutrition />
         <Packs />
         <Eggs />
         <Why />

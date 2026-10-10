@@ -12,6 +12,54 @@ const items = [
   { icon: HeartPulse, title: 'Supports a healthy heart', text: 'A wholesome choice, every day.', pos: 'col-span-2 items-center text-center md:inset-x-0 md:bottom-[3%] md:mx-auto md:w-72 md:justify-center' },
 ];
 
+/* Light layer: sits on the cream background */
+function IntroLight() {
+  return (
+    <div
+      className="pointer-events-none absolute inset-0 hidden flex-col items-center justify-center px-10 text-center text-chestnut motion-reduce:hidden md:flex"
+      aria-hidden="true"
+    >
+      <p className="font-script text-2xl text-ember lg:text-8xl">Ever wondered what's inside?</p>
+      {/* <p className="mt-3 font-display text-[clamp(3rem,8vw,7rem)] font-black leading-[0.95] tracking-[-0.03em]">
+        Crack open
+        <br />
+        <span className="text-ember">the goodness.</span>
+      </p> */}
+
+      <div className="mt-10 flex flex-col items-center gap-3 text-xs font-bold uppercase tracking-[0.25em] text-chestnut/70">
+        <span>Scroll to find out</span>
+        <span className="relative block h-10 w-6 rounded-full border-2 border-chestnut/50">
+          <span className="power-cue-dot absolute left-1/2 top-2 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-ember" />
+        </span>
+      </div>
+    </div>
+  );
+}
+
+/* Dark layer: lives inside the expanding circle, with its own copy */
+function IntroDark() {
+  return (
+    <div
+      className="power-intro pointer-events-none absolute inset-0 hidden flex-col items-center justify-center px-10 text-center text-shell motion-reduce:hidden md:flex"
+      aria-hidden="true"
+    >
+      {/* <p className="font-script text-2xl text-yolk lg:text-3xl">Nature's little powerhouse</p> */}
+       <p className="mt-3 font-display text-[clamp(3rem,8vw,7rem)] font-black leading-[0.95] tracking-[-0.03em]">
+        Crack open
+        <br />
+        <span className="text-ember">the goodness.</span>
+      </p>
+
+      <div className="mt-10 flex flex-col items-center gap-3 text-xs font-bold uppercase tracking-[0.25em] text-shell/80">
+        <span>Keep scrolling</span>
+        <span className="relative block h-10 w-6 rounded-full border-2 border-shell/60">
+          <span className="power-cue-dot absolute left-1/2 top-2 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-yolk" />
+        </span>
+      </div>
+    </div>
+  );
+}
+
 export default function Power() {
   const root = useRef(null);
 
@@ -20,11 +68,14 @@ export default function Power() {
       const mm = gsap.matchMedia();
 
       mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
+        gsap.fromTo('.power-cue-dot', { y: 0, opacity: 1 }, { y: 16, opacity: 0, duration: 1.2, ease: 'power1.in', repeat: -1 });
+
         const tl = gsap.timeline({
           scrollTrigger: { trigger: root.current, start: 'top top', end: '+=280%', pin: true, scrub: 0.6, anticipatePin: 1 },
         });
         tl.fromTo('.power-fill', { clipPath: 'circle(0% at 50% 52%)' }, { clipPath: 'circle(82% at 50% 52%)', ease: 'power2.inOut', duration: 1.5 })
-          .from('.power-head', { opacity: 0, y: 40, duration: 0.6 }, '-=0.5')
+          .to('.power-intro', { opacity: 0, y: -50, scale: 0.94, duration: 0.5, ease: 'power2.in' }, 0.9)
+          .from('.power-head', { opacity: 0, y: 40, duration: 0.6 }, '-=0.3')
           .from('.egg-wrap', { scale: 0.55, opacity: 0, y: 70, duration: 0.8 }, '<')
           .to('.egg-top', { y: -62, rotate: -14, svgOrigin: '330 215', duration: 0.9, ease: 'power3.out' })
           .from('.egg-yolk', { scale: 0.4, svgOrigin: '200 210', duration: 0.7, ease: 'back.out(1.6)' }, '<0.1')
@@ -48,7 +99,11 @@ export default function Power() {
 
   return (
     <section id="power" ref={root} className="relative overflow-hidden bg-shell text-shell md:h-svh">
-      <div className="power-fill absolute inset-0 bg-chestnut" aria-hidden="true" />
+      <IntroLight />
+
+      <div className="power-fill absolute inset-0 bg-chestnut" aria-hidden="true">
+        <IntroDark />
+      </div>
 
       <div className="relative mx-auto flex max-w-[1400px] flex-col items-center px-5 pb-20 pt-24 md:h-full md:justify-start md:px-10 md:pb-0 md:pt-28">
         <div className="power-head text-center">
