@@ -76,8 +76,8 @@ export default function Nav() {
           }`}
         >
           <a href="#top" onClick={go('#top')} className="flex items-center gap-2.5" aria-label="Egg Bowl, back to top">
-            <img src={logo} alt="" width="52" height="50" className="h-11 w-auto md:h-12" />
-            <span className="font-display text-xl font-black tracking-tight">Egg Bowl</span>
+            <img src={logo} alt="" width="52" height="50" className="h-14 w-auto md:h-16" />
+            <span className="font-display text-3xl font-black tracking-tight">Egg Bowl</span>
           </a>
 
           <ul className="hidden items-center gap-8 lg:flex">
@@ -110,7 +110,7 @@ export default function Nav() {
       {open && (
         <div ref={menu} className="fixed inset-0 z-[60] flex flex-col bg-chestnut px-6 pb-10 pt-6 text-shell" role="dialog" aria-modal="true" aria-label="Menu">
           <div className="flex items-center justify-between">
-            <span className="font-display text-xl font-black">Egg Bowl</span>
+            <span className="font-display text-2xl font-black">Egg Bowl</span>
             <button
               type="button"
               onClick={go('#top')}

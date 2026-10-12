@@ -8,6 +8,7 @@ import Power from './components/Power';
 import Nutrition from './components/Nutrition';
 import Packs from './components/Packs';
 import Eggs from './components/Eggs';
+import OurPromise from './components/OurPromise';
 import Why from './components/Why';
 import Journey from './components/Journey';
 import Audience from './components/Audience';
@@ -37,6 +38,7 @@ export default function App() {
         <Nutrition />
         <Packs />
         <Eggs />
+        <OurPromise />
         <Why />
         <Journey />
         <Audience />
